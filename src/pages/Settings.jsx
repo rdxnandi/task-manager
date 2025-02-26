@@ -32,7 +32,7 @@ function Settings({ isOpen, onClose }) {
 
   return (
     <div
-      className={`fixed inset-0 flex justify-end transition-opacity duration-300 ${
+      className={`fixed inset-0 z-10 flex justify-end transition-opacity duration-300 ${
         isOpen ? "visible" : "invisible"
       }`}
     >
