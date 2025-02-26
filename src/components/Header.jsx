@@ -9,22 +9,22 @@ function Header() {
   return (
     <>
       <header className="flex items-center justify-between bg-yellow-500 px-5">
-        <div className="text-2xl font-bold tracking-wider text-white">
-          Tasks
+        <div className="text-2xl font-bold tracking-wider text-white cursor-default">
+          <Link to="/">Tasks</Link>
         </div>
 
         <nav className="p-4 flex items-center gap-10">
           <ul className="flex gap-7 text-white">
-            <li className="tracking-wider text-lg hover:bg-yellow-600 p-2">
+            <li className="tracking-wider text-lg hover:bg-yellow-600 hover:rounded-md p-2">
               <Link to="/">Dashboard</Link>
             </li>
-            <li className="tracking-wider text-lg hover:bg-yellow-600 p-2">
+            <li className="tracking-wider text-lg hover:bg-yellow-600 hover:rounded-md p-2">
               <Link to="/tasks">Tasks</Link>
             </li>
           </ul>
           <button
             onClick={() => setIsSettingOpen(true)}
-            className="text-lg tracking-wider hover:bg-yellow-600 p-2 cursor-pointer text-white"
+            className="text-lg tracking-wider hover:bg-yellow-600 hover:rounded-md p-2 cursor-pointer text-white"
           >
             Settings
           </button>
