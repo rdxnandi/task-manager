@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
+import {
+  LocalizationProvider,
+  DatePicker,
+  TimePicker,
+} from "@mui/x-date-pickers";
 import Layout from "../components/Layout";
 
 function Tasks({ tasks, setTasks }) {
   const [newTask, setNewTask] = useState("");
   const [selectedDate, setSelectedDate] = useState(dayjs());
+  const [taskTime, setTaskTime] = useState(dayjs());
 
   const addTask = () => {
     if (newTask.trim()) {
@@ -17,10 +22,12 @@ function Tasks({ tasks, setTasks }) {
           text: newTask,
           completed: false,
           dueDate: selectedDate,
+          dueTime: taskTime,
         },
       ]);
       setNewTask("");
       setSelectedDate(dayjs());
+      setTaskTime(dayjs());
     }
   };
 
@@ -49,6 +56,11 @@ function Tasks({ tasks, setTasks }) {
               onChange={(newDate) => setSelectedDate(newDate)}
               className="mt-2"
             />
+            <TimePicker
+              value={taskTime}
+              onChange={(newTime) => setTaskTime(newTime)}
+              className="mt-2"
+            />
           </LocalizationProvider>
           <button
             onClick={addTask}
@@ -72,6 +84,11 @@ function Tasks({ tasks, setTasks }) {
                 <span className="text-sm text-[#414141]">
                   {task.dueDate
                     ? dayjs(task.dueDate).format("MMM D, YYYY")
+                    : "No Date"}
+                </span>
+                <span className="text-sm text-[#414141]">
+                  {task.dueTime
+                    ? dayjs(task.dueTime).format("HH:mm")
                     : "No Date"}
                 </span>
               </div>

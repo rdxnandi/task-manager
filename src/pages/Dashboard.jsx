@@ -5,14 +5,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import dayjs from "dayjs";
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
-import NotificationBar from "./NotificationBar";
 
 function Dashboard({ tasks }) {
   const completedTasks = tasks.filter((task) => task.completed).length;
   const pendingTasks = tasks.length - completedTasks;
   const [date, setDate] = useState(dayjs());
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [notificationMsg, setNotificationMsg] = useState("");
 
   const taskAnalyticData = tasks.map((task, index) => ({
     name: `Task ${index + 1}`,
@@ -107,12 +104,6 @@ function Dashboard({ tasks }) {
           </div>
         </div>
       </div>
-
-      <NotificationBar
-        open={snackbarOpen}
-        notificationMsg={notificationMsg}
-        onClose={() => setSnackbarOpen(false)}
-      />
     </Layout>
   );
 }
