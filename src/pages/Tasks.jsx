@@ -41,7 +41,7 @@ function Tasks({ tasks, setTasks }) {
 
   return (
     <Layout>
-      <div className="p-4 bg-white shadow-md rounded-lg">
+      <div className="p-4">
         <div className="flex gap-3 justify-center mt-6">
           <input
             type="text"

@@ -14,14 +14,11 @@ function Header() {
         </div>
 
         <nav className="p-4 flex items-center gap-10">
-          <ul className="flex gap-7 text-white">
-            <li className="tracking-wider text-lg hover:bg-yellow-600 hover:rounded-md p-2">
-              <Link to="/">Dashboard</Link>
-            </li>
-            <li className="tracking-wider text-lg hover:bg-yellow-600 hover:rounded-md p-2">
-              <Link to="/tasks">Tasks</Link>
-            </li>
-          </ul>
+          <Link to="/tasks">
+            <button className="bg-amber-300 px-5 py-2 rounded-lg cursor-pointer">
+              Task
+            </button>
+          </Link>
           <button
             onClick={() => setIsSettingOpen(true)}
             className="text-lg tracking-wider hover:bg-yellow-600 hover:rounded-md p-2 cursor-pointer text-white"
