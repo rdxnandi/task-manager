@@ -5,6 +5,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import dayjs from "dayjs";
 import { LineChart, Line, XAxis, Tooltip, ResponsiveContainer } from "recharts";
+import NotificationSnackbar from "../components/NotificationSnackbar";
 
 function Dashboard({ tasks }) {
   const completedTasks = tasks.filter((task) => task.completed).length;
@@ -103,6 +104,11 @@ function Dashboard({ tasks }) {
             </ul>
           </div>
         </div>
+      </div>
+      <div>
+        {tasks.map((task) => (
+          <NotificationSnackbar key={task.id} task={task} />
+        ))}
       </div>
     </Layout>
   );

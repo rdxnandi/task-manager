@@ -1,18 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSettings } from "../context/SettingContext";
 
 function Settings({ isOpen, onClose }) {
-  const [settings, setSettings] = useState({
-    notifications: true,
-    autoDarkMode: false,
-    soundAlerts: true,
-    emailReminders: false,
-    compactView: false,
-  });
   const sidebarRef = useRef(null);
 
-  const toggleSetting = (key) => {
-    setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
+  const { settings, toggleSetting } = useSettings();
 
   useEffect(() => {
     function handleClickOutside(e) {

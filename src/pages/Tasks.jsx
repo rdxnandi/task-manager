@@ -21,8 +21,8 @@ function Tasks({ tasks, setTasks }) {
           id: tasks.length + 1,
           text: newTask,
           completed: false,
-          dueDate: selectedDate,
-          dueTime: taskTime,
+          dueDate: selectedDate.format("YYYY-MM-DD"),
+          dueTime: taskTime.format("HH:mm"),
         },
       ]);
       setNewTask("");
@@ -87,9 +87,7 @@ function Tasks({ tasks, setTasks }) {
                     : "No Date"}
                 </span>
                 <span className="text-sm text-[#414141]">
-                  {task.dueTime
-                    ? dayjs(task.dueTime).format("HH:mm")
-                    : "No Date"}
+                  {task.dueTime ? task.dueTime : "No Time"}
                 </span>
               </div>
               <button
