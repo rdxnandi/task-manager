@@ -42,12 +42,12 @@ function Tasks({ tasks, setTasks }) {
   return (
     <Layout>
       <div className="p-4">
-        <div className="flex gap-3 justify-center mt-6">
+        <div className="flex gap-3 justify-center mt-6 h-[40px]">
           <input
             type="text"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            className="p-2 flex rounded border border-gray-300"
+            className="p-2 flex rounded border border-gray-300 w-[400px]"
             placeholder="Add a new task"
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -55,32 +55,31 @@ function Tasks({ tasks, setTasks }) {
               value={selectedDate}
               onChange={(newDate) => setSelectedDate(newDate)}
               className="mt-2"
+              sx={{ "& .MuiInputBase-root": { height: "40px" } }}
             />
             <TimePicker
               value={taskTime}
               onChange={(newTime) => setTaskTime(newTime)}
               className="mt-2"
+              sx={{ "& .MuiInputBase-root": { height: "40px" } }}
             />
           </LocalizationProvider>
           <button
             onClick={addTask}
-            className="ml-2 px-4 bg-amber-400 text-white rounded"
+            className="ml-2 px-5 bg-amber-400 text-white rounded cursor-pointer"
           >
             Add
           </button>
         </div>
-        <ul className="mt-6">
+        <ul className="mt-10 flex gap-4 flex-wrap">
           {tasks.map((task, index) => (
-            <li
-              key={index}
-              className="flex justify-between p-2 bg-amber-200 rounded mt-2"
-            >
-              <div className="flex gap-5">
-                <span
-                  className={task.completed ? "line-through text-gray-500" : ""}
-                >
-                  {task.text}
-                </span>
+            <li key={index} className="bg-purple-500 w-[200px] p-3 rounded-lg">
+              <span
+                className={task.completed ? "line-through text-gray-500" : ""}
+              >
+                {task.text}
+              </span>
+              <div className="flex justify-between my-4">
                 <span className="text-sm text-[#414141]">
                   {task.dueDate
                     ? dayjs(task.dueDate).format("MMM D, YYYY")
@@ -92,7 +91,7 @@ function Tasks({ tasks, setTasks }) {
               </div>
               <button
                 onClick={() => toggleTaskCompletion(index)}
-                className="p-2 hover:bg-amber-300 rounded hover:cursor-pointer"
+                className="cursor-pointer outline-none text-sm"
               >
                 {task.completed ? "Undo" : "Complete"}
               </button>
