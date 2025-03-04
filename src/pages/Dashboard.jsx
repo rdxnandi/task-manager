@@ -7,6 +7,8 @@ import dayjs from "dayjs";
 import { Tooltip, PieChart, Pie, Cell, Legend } from "recharts";
 import NotificationSnackbar from "../components/NotificationSnackbar";
 import { Clock9, CircleCheck, ClipboardList, ChartPie } from "lucide-react";
+import RecentActivities from "../components/RecentActivities";
+import UpcomingDeadline from "../components/UpcomingDeadline";
 
 function Dashboard({ tasks }) {
   const completedTasks = tasks.filter((task) => task.completed).length;
@@ -14,8 +16,19 @@ function Dashboard({ tasks }) {
   const [date, setDate] = useState(dayjs());
 
   const taskStatusData = [
-    { name: "Completed", value: completedTasks, color: "#2ECC71" },
-    { name: "Pending", value: pendingTasks, color: "#F39C12" },
+    { name: "Completed", value: completedTasks, color: "#f0b100" },
+    { name: "Pending", value: pendingTasks, color: "#e17100" },
+  ];
+
+  const recentActivities = [
+    'Task "Design Homepage" completed',
+    'Task "Fix Login Bug" updated',
+    'Task "Write Documentation" added',
+  ];
+
+  const upcomingDeadline = [
+    "Task 'Deploy Project' - Due in 2 days",
+    "Task 'Client Presentation' - Due in 5 days",
   ];
 
   return (
@@ -49,7 +62,7 @@ function Dashboard({ tasks }) {
 
       <div className="flex gap-4 w-full flex-col lg:flex-row">
         {/* Statistic */}
-        <div className="mt-6 p-4 bg-white shadow-md lg:w-1/2 w-full rounded-2xl">
+        <div className="mt-6 p-4 bg-white shadow-md lg:w-1/3 w-full rounded-2xl">
           <div className="flex gap-3 items-center">
             <ChartPie size={13} />
             <h3 className="text-lg font-semibold">Task Statistic</h3>
@@ -66,9 +79,9 @@ function Dashboard({ tasks }) {
                 outerRadius={80}
                 fill="#8884d8"
               >
-                {taskStatusData.map((entry, index) => {
-                  <Cell key={`cell-${index}`} fill={entry.color} />;
-                })}
+                {taskStatusData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
               </Pie>
               <Tooltip />
               <Legend />
@@ -109,23 +122,10 @@ function Dashboard({ tasks }) {
 
       <div className="lg:w-[40%] w-full">
         {/* Recent Activities */}
-        <div className="mt-6 p-4 bg-white shadow-md rounded-2xl">
-          <h3 className="text-lg font-bold">Recent Activities</h3>
-          <ul className="mt-2 text-gray-600">
-            <li>Task "Design Homepage" completed</li>
-            <li>Task "Fix Login Bug" updated</li>
-            <li>Task "Write Documentation" added</li>
-          </ul>
-        </div>
+        <RecentActivities activities={recentActivities} />
 
         {/* Upcoming Deadlines */}
-        <div className="mt-6 p-4 bg-white shadow-md rounded-2xl">
-          <h3 className="text-lg font-bold">Upcoming Deadlines</h3>
-          <ul className="mt-2 text-gray-600">
-            <li>Task "Deploy Project" - Due in 2 days</li>
-            <li>Task "Client Presentation" - Due in 5 days</li>
-          </ul>
-        </div>
+        <UpcomingDeadline activities={upcomingDeadline} />
       </div>
       <div>
         {tasks.map((task) => (

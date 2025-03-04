@@ -8,24 +8,28 @@ function Header() {
 
   return (
     <>
-      <header className="flex items-center justify-between bg-yellow-500 px-5">
-        <div className="text-2xl font-bold tracking-wider text-white cursor-default">
-          <Link to="/">Tasks</Link>
-        </div>
+      <header className="bg-white p-10 mr-5 rounded-2xl w-[300px] flex flex-col justify-between shadow-md">
+        <nav className="flex flex-col gap-5">
+          <div className="text-2xl font-bold tracking-wider text-amber-400 cursor-default border-b border-gray-300 mb-7 pb-5">
+            <Link to="/">To-do</Link>
+          </div>
 
-        <nav className="p-4 flex items-center gap-10">
-          <Link to="/tasks">
-            <button className="bg-amber-300 px-5 py-2 rounded-lg cursor-pointer">
-              Task
-            </button>
-          </Link>
-          <button
-            onClick={() => setIsSettingOpen(true)}
-            className="text-lg tracking-wider hover:bg-yellow-600 hover:rounded-md p-2 cursor-pointer text-white"
-          >
-            Settings
-          </button>
+          <ul>
+            <li className="text-lg mb-4">
+              <Link to="/">Dashboard</Link>
+            </li>
+            <li className="text-lg">
+              <Link to="/tasks">Task</Link>
+            </li>
+          </ul>
         </nav>
+
+        <button
+          onClick={() => setIsSettingOpen(true)}
+          className="text-lg tracking-wide cursor-pointer text-left"
+        >
+          Settings
+        </button>
       </header>
 
       <Settings
