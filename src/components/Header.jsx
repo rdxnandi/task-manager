@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sun, Moon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Settings from "../pages/Settings";
 
 function Header() {
@@ -15,11 +15,29 @@ function Header() {
           </div>
 
           <ul>
-            <li className="text-lg mb-4">
-              <Link to="/">Dashboard</Link>
+            <li className="mb-4">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  `text-lg px-4 py-2 rounded-md ${
+                    isActive ? "bg-amber-100" : ""
+                  }`
+                }
+              >
+                Dashboard
+              </NavLink>
             </li>
-            <li className="text-lg">
-              <Link to="/tasks">Task</Link>
+            <li className="mb-4">
+              <NavLink
+                to="/tasks"
+                className={({ isActive }) =>
+                  `text-lg px-4 py-2 rounded-md ${
+                    isActive ? "bg-amber-100" : ""
+                  }`
+                }
+              >
+                Task
+              </NavLink>
             </li>
           </ul>
         </nav>

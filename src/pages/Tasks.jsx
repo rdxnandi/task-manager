@@ -47,7 +47,7 @@ function Tasks({ tasks, setTasks }) {
             type="text"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            className="p-2 flex rounded border border-gray-300 w-[400px]"
+            className="p-2 flex rounded border border-gray-300 w-[400px] hover:border-black focus:outline-blue-500"
             placeholder="Add a new task"
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -73,9 +73,11 @@ function Tasks({ tasks, setTasks }) {
         </div>
         <ul className="mt-10 flex gap-4 flex-wrap">
           {tasks.map((task, index) => (
-            <li key={index} className="bg-purple-500 w-[200px] p-3 rounded-lg">
+            <li key={index} className="bg-amber-200 w-[200px] p-3 rounded-lg">
               <span
-                className={task.completed ? "line-through text-gray-500" : ""}
+                className={`text-lg font-semibold ${
+                  task.completed ? "line-through text-gray-500" : ""
+                }`}
               >
                 {task.text}
               </span>
