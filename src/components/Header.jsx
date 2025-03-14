@@ -44,7 +44,7 @@ function Header() {
 
         <button
           onClick={() => setIsSettingOpen(true)}
-          className="text-lg tracking-wide cursor-pointer text-left"
+          className="text-lg tracking-wide cursor-pointer text-left hover:bg-amber-100 focus:bg-amber-100 w-fit py-2 px-4 rounded-md"
         >
           Settings
         </button>

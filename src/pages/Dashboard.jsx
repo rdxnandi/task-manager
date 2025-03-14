@@ -34,35 +34,39 @@ function Dashboard({ tasks }) {
   return (
     <Layout>
       {/* Dashboard Overview */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="p-4 shadow-md rounded-2xl bg-white flex items-center gap-4">
-          <ClipboardList size={38} strokeWidth={1.75} />
-          <div>
-            <h3 className="text-gray-600 font-bold text-lg">{tasks.length}</h3>
-            <p className="font-semibold">Total Tasks</p>
+      <div className="flex gap-5">
+        <div className="grid grid-cols-1 gap-4 w-[30%]">
+          <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
+            <ClipboardList size={28} strokeWidth={1.75} />
+            <div>
+              <h3 className="text-gray-600 font-bold text-lg">
+                {tasks.length}
+              </h3>
+              <p className="font-semibold">Total Tasks</p>
+            </div>
+          </div>
+          <div className="p-2 bg-white shadow-md rounded-2xl flex items-center gap-4">
+            <CircleCheck size={28} strokeWidth={1.75} />
+            <div>
+              <h3 className="text-gray-600 font-bold text-lg">
+                {completedTasks}
+              </h3>
+              <p className="font-semibold">Completed Tasks</p>
+            </div>
+          </div>
+          <div className="p-2 bg-white shadow-md rounded-2xl flex items-center gap-4">
+            <Clock9 size={28} strokeWidth={1.75} />
+            <div>
+              <h3 className="text-gray-600 font-bold text-lg">
+                {pendingTasks}
+              </h3>
+              <p className="font-semibold">Pending Tasks</p>
+            </div>
           </div>
         </div>
-        <div className="p-4 bg-white shadow-md rounded-2xl flex items-center gap-4">
-          <CircleCheck size={38} strokeWidth={1.75} />
-          <div>
-            <h3 className="text-gray-600 font-bold text-lg">
-              {completedTasks}
-            </h3>
-            <p className="font-semibold">Completed Tasks</p>
-          </div>
-        </div>
-        <div className="p-4 bg-white shadow-md rounded-2xl flex items-center gap-4">
-          <Clock9 size={38} strokeWidth={1.75} />
-          <div>
-            <h3 className="text-gray-600 font-bold text-lg">{pendingTasks}</h3>
-            <p className="font-semibold">Pending Tasks</p>
-          </div>
-        </div>
-      </div>
 
-      <div className="flex gap-4 w-full flex-col lg:flex-row">
         {/* Statistic */}
-        <div className="mt-6 p-4 bg-white shadow-md lg:w-1/3 w-full rounded-2xl">
+        <div className="p-4 bg-white shadow-md lg:w-1/2 w-full rounded-2xl">
           <div className="flex gap-3 items-center">
             <ChartPie size={13} />
             <h3 className="text-lg font-semibold">Task Statistic</h3>
@@ -98,7 +102,9 @@ function Dashboard({ tasks }) {
             ))}
           </ul>
         </div>
+      </div>
 
+      <div className="flex gap-4 w-full flex-col lg:flex-row">
         {/* Calendar Integration using MUI */}
         <div className="mt-6 p-4 bg-white shadow-md rounded-2xl lg:w-[30%] w-full">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -118,15 +124,16 @@ function Dashboard({ tasks }) {
             />
           </LocalizationProvider>
         </div>
+
+        <div className="flex gap-5 lg:w-[70%] w-full">
+          {/* Recent Activities */}
+          <RecentActivities activities={recentActivities} />
+
+          {/* Upcoming Deadlines */}
+          <UpcomingDeadline activities={upcomingDeadline} />
+        </div>
       </div>
 
-      <div className="lg:w-[40%] w-full">
-        {/* Recent Activities */}
-        <RecentActivities activities={recentActivities} />
-
-        {/* Upcoming Deadlines */}
-        <UpcomingDeadline activities={upcomingDeadline} />
-      </div>
       <div>
         {tasks.map((task) => (
           <NotificationSnackbar key={task.id} task={task} />
