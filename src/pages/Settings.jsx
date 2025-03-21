@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSettings } from "../context/SettingContext";
+import { useTasks } from "../context/TaskContext";
 
 function Settings({ isOpen, onClose }) {
   const sidebarRef = useRef(null);
 
-  const { settings, toggleSetting } = useSettings();
+  const { settings, toggleSetting } = useTasks();
 
   useEffect(() => {
     function handleClickOutside(e) {

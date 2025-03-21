@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useSettings } from "../context/SettingContext";
 import { Snackbar, Alert } from "@mui/material";
+import { useTasks } from "../context/TaskContext";
 
 function NotificationSnackbar({ task }) {
-  const { settings } = useSettings();
+  const { settings } = useTasks();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {

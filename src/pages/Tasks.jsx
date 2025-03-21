@@ -7,36 +7,20 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import Layout from "../components/Layout";
+import { Trash } from "lucide-react";
+import { useTasks } from "../context/TaskContext";
 
-function Tasks({ tasks, setTasks }) {
+function Tasks() {
+  const { tasks, addTask, toggleTaskCompletion, deleteTask } = useTasks();
   const [newTask, setNewTask] = useState("");
   const [selectedDate, setSelectedDate] = useState(dayjs());
   const [taskTime, setTaskTime] = useState(dayjs());
 
-  const addTask = () => {
-    if (newTask.trim()) {
-      setTasks([
-        ...tasks,
-        {
-          id: tasks.length + 1,
-          text: newTask,
-          completed: false,
-          dueDate: selectedDate.format("YYYY-MM-DD"),
-          dueTime: taskTime.format("HH:mm"),
-        },
-      ]);
-      setNewTask("");
-      setSelectedDate(dayjs());
-      setTaskTime(dayjs());
-    }
-  };
-
-  const toggleTaskCompletion = (index) => {
-    setTasks(
-      tasks.map((task, i) =>
-        i === index ? { ...task, completed: !task.completed } : task
-      )
-    );
+  const handleAddTask = () => {
+    addTask(newTask, selectedDate, taskTime);
+    setNewTask("");
+    setSelectedDate(dayjs());
+    setTaskTime(dayjs());
   };
 
   return (
@@ -65,15 +49,15 @@ function Tasks({ tasks, setTasks }) {
             />
           </LocalizationProvider>
           <button
-            onClick={addTask}
+            onClick={handleAddTask}
             className="ml-2 px-5 bg-amber-400 text-white rounded cursor-pointer"
           >
             Add
           </button>
         </div>
         <ul className="mt-10 flex gap-4 flex-wrap">
-          {tasks.map((task, index) => (
-            <li key={index} className="bg-amber-200 w-[200px] p-3 rounded-lg">
+          {tasks.map((task) => (
+            <li key={task.id} className="bg-amber-200 w-[200px] p-3 rounded-lg">
               <span
                 className={`text-lg font-semibold ${
                   task.completed ? "line-through text-gray-500" : ""
@@ -91,12 +75,20 @@ function Tasks({ tasks, setTasks }) {
                   {task.dueTime ? task.dueTime : "No Time"}
                 </span>
               </div>
-              <button
-                onClick={() => toggleTaskCompletion(index)}
-                className="cursor-pointer outline-none text-sm"
-              >
-                {task.completed ? "Undo" : "Complete"}
-              </button>
+              <div className="flex justify-between">
+                <button
+                  onClick={() => toggleTaskCompletion(task.id)}
+                  className="cursor-pointer outline-none text-sm"
+                >
+                  {task.completed ? "Undo" : "Complete"}
+                </button>
+                <button
+                  className="cursor-pointer text-red-500"
+                  onClick={() => deleteTask(task.id)}
+                >
+                  <Trash size={15} />
+                </button>
+              </div>
             </li>
           ))}
         </ul>

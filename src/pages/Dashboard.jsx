@@ -5,12 +5,14 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import dayjs from "dayjs";
 import { Tooltip, PieChart, Pie, Cell, Legend } from "recharts";
-import NotificationSnackbar from "../components/NotificationSnackbar";
 import { Clock9, CircleCheck, ClipboardList, ChartPie } from "lucide-react";
+import NotificationSnackbar from "../components/NotificationSnackbar";
 import RecentActivities from "../components/RecentActivities";
 import UpcomingDeadline from "../components/UpcomingDeadline";
+import { useTasks } from "../context/TaskContext";
 
-function Dashboard({ tasks }) {
+function Dashboard() {
+  const { tasks, recentActivities } = useTasks();
   const completedTasks = tasks.filter((task) => task.completed).length;
   const pendingTasks = tasks.length - completedTasks;
   const [date, setDate] = useState(dayjs());
@@ -20,15 +22,9 @@ function Dashboard({ tasks }) {
     { name: "Pending", value: pendingTasks, color: "#e17100" },
   ];
 
-  const recentActivities = [
-    'Task "Design Homepage" completed',
-    'Task "Fix Login Bug" updated',
-    'Task "Write Documentation" added',
-  ];
-
   const upcomingDeadline = [
-    "Task 'Deploy Project' - Due in 2 days",
-    "Task 'Client Presentation' - Due in 5 days",
+    'Task "Deploy Project" - Due in 2 days',
+    'Task "Client Presentation" - Due in 5 days',
   ];
 
   return (
@@ -37,30 +33,30 @@ function Dashboard({ tasks }) {
       <div className="flex gap-5">
         <div className="grid grid-cols-1 gap-4 w-[30%]">
           <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
-            <ClipboardList size={28} strokeWidth={1.75} />
+            <ClipboardList size={28} />
             <div>
               <h3 className="text-gray-600 font-bold text-lg">
                 {tasks.length}
               </h3>
-              <p className="font-semibold">Total Tasks</p>
+              <p>Total Tasks</p>
             </div>
           </div>
-          <div className="p-2 bg-white shadow-md rounded-2xl flex items-center gap-4">
-            <CircleCheck size={28} strokeWidth={1.75} />
+          <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
+            <CircleCheck size={28} />
             <div>
               <h3 className="text-gray-600 font-bold text-lg">
                 {completedTasks}
               </h3>
-              <p className="font-semibold">Completed Tasks</p>
+              <p>Completed Tasks</p>
             </div>
           </div>
-          <div className="p-2 bg-white shadow-md rounded-2xl flex items-center gap-4">
-            <Clock9 size={28} strokeWidth={1.75} />
+          <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
+            <Clock9 size={28} />
             <div>
               <h3 className="text-gray-600 font-bold text-lg">
                 {pendingTasks}
               </h3>
-              <p className="font-semibold">Pending Tasks</p>
+              <p>Pending Tasks</p>
             </div>
           </div>
         </div>
@@ -68,7 +64,7 @@ function Dashboard({ tasks }) {
         {/* Statistic */}
         <div className="p-4 bg-white shadow-md lg:w-1/2 w-full rounded-2xl">
           <div className="flex gap-3 items-center">
-            <ChartPie size={13} />
+            <ChartPie size={20} />
             <h3 className="text-lg font-semibold">Task Statistic</h3>
           </div>
           <div className="mt-4 h-64">
