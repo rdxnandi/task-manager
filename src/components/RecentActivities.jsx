@@ -2,23 +2,68 @@ import React, { useState } from "react";
 import { useTasks } from "../context/TaskContext";
 
 function RecentActivities() {
-  const { recentActivities } = useTasks();
-  const [visibleCount, setVisibleCount] = useState(5);
+  const { recentActivities, deleteRecentActivity } = useTasks();
+  const [visibleCount, setVisibleCount] = useState(7);
+  const [showMiddleBox, setShowMiddleBox] = useState(false);
 
   const handleSeeMore = () => {
-    setVisibleCount((prevCount) => prevCount + 5);
+    setShowMiddleBox(true);
   };
 
   return (
-    <div className="mt-6 p-4 bg-white shadow-md rounded-2xl">
+    <div className="p-4 bg-white rounded-2xl w-full relative lg:h-full h-[300px]">
       <h3 className="text-lg font-bold">Recent Activities</h3>
-      <ul className="mt-2 text-gray-600">
+      <ul className="mt-2 text-gray-600 flex flex-col gap-2">
         {recentActivities.slice(0, visibleCount).map((activity, index) => (
-          <li key={index}>{activity}</li>
+          <li key={index} className="flex justify-between">
+            <span>{activity.task}</span>
+            <div className="flex gap-4 items-center">
+              <span>{activity.status}</span>
+              <button
+                onClick={() => deleteRecentActivity(index)}
+                className="w-6 h-6 flex items-center justify-center hover:bg-green-300 rounded-md cursor-pointer hover:text-white"
+              >
+                x
+              </button>
+            </div>
+          </li>
         ))}
       </ul>
-      {visibleCount < recentActivities.length && (
-        <button onClick={handleSeeMore}>See More</button>
+      {recentActivities.length > 7 && (
+        <button
+          onClick={handleSeeMore}
+          className="mt-4 text-center w-full cursor-pointer hover:underline absolute bottom-2 z-50"
+        >
+          See More
+        </button>
+      )}
+      {showMiddleBox && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800/50 z-[999]">
+          <div className="p-6 bg-white rounded-lg shadow-lg w-[600px] overflow-y-auto">
+            <ul className="text-gray-600 flex flex-col gap-2">
+              {recentActivities.slice(visibleCount).map((activity, index) => (
+                <li key={index} className="flex justify-between">
+                  <span>{activity.task}</span>
+                  <div className="flex gap-4 items-center">
+                    <span>{activity.status}</span>
+                    <button
+                      onClick={() => deleteRecentActivity(index)}
+                      className="w-6 h-6 p-1 flex items-center justify-center hover:bg-green-300 rounded-md cursor-pointer hover:text-white"
+                    >
+                      x
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => setShowMiddleBox(false)}
+              className="cursor-pointer w-fit mt-7 px-2 border rounded-md border-gray-600 float-right"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

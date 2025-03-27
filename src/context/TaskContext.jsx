@@ -50,7 +50,7 @@ export const TaskProvider = ({ children }) => {
       setTasks((prevTasks) => [...prevTasks, task]);
 
       setRecentActivities((prevActivities) => [
-        `Task "${newTask}" added`,
+        { task: newTask, status: "added" },
         ...prevActivities,
       ]);
     }
@@ -60,7 +60,7 @@ export const TaskProvider = ({ children }) => {
     const task = tasks.find((task) => task.id === taskId);
     if (task) {
       setRecentActivities((prevActivities) => [
-        `Task "${task.text}" deleted`,
+        { task: task.text, status: "deleted" },
         ...prevActivities,
       ]);
     }
@@ -78,12 +78,21 @@ export const TaskProvider = ({ children }) => {
     const task = tasks.find((task) => task.id === taskId);
     if (task) {
       setRecentActivities((prevActivities) => [
-        `Task "${task.text}" ${
-          task.completed ? "marked as incomplete" : "marked as completed"
-        }`,
+        {
+          task: task.text,
+          status: task.completed
+            ? "marked as incomplete"
+            : "marked as completed",
+        },
         ...prevActivities,
       ]);
     }
+  };
+
+  const deleteRecentActivity = (index) => {
+    setRecentActivities((prevActivities) =>
+      prevActivities.filter((_, i) => i !== index)
+    );
   };
 
   return (
@@ -96,6 +105,7 @@ export const TaskProvider = ({ children }) => {
         toggleTaskCompletion,
         deleteTask,
         recentActivities,
+        deleteRecentActivity,
       }}
     >
       {children}

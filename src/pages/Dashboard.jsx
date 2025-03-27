@@ -18,8 +18,8 @@ function Dashboard() {
   const [date, setDate] = useState(dayjs());
 
   const taskStatusData = [
-    { name: "Completed", value: completedTasks, color: "#f0b100" },
-    { name: "Pending", value: pendingTasks, color: "#e17100" },
+    { name: "Completed", value: completedTasks, color: "#7bf1a8" },
+    { name: "Pending", value: pendingTasks, color: "#05df72" },
   ];
 
   const upcomingDeadline = [
@@ -30,10 +30,10 @@ function Dashboard() {
   return (
     <Layout>
       {/* Dashboard Overview */}
-      <div className="flex gap-5">
-        <div className="grid grid-cols-1 gap-4 w-[30%]">
-          <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
-            <ClipboardList size={28} />
+      <div className="flex lg:flex-row flex-col gap-5 lg:h-[300px] mt-7 lg:mt-0 md:flex-row">
+        <div className="grid grid-cols-1 gap-4 lg:w-[42%] md:w-[42%] lg:h-full">
+          <div className="p-3 rounded-2xl bg-white flex items-center gap-6">
+            <ClipboardList size={20} className="text-gray-500" />
             <div>
               <h3 className="text-gray-600 font-bold text-lg">
                 {tasks.length}
@@ -41,8 +41,8 @@ function Dashboard() {
               <p>Total Tasks</p>
             </div>
           </div>
-          <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
-            <CircleCheck size={28} />
+          <div className="p-3 rounded-2xl bg-white flex items-center gap-6">
+            <CircleCheck size={20} className="text-gray-500" />
             <div>
               <h3 className="text-gray-600 font-bold text-lg">
                 {completedTasks}
@@ -50,8 +50,8 @@ function Dashboard() {
               <p>Completed Tasks</p>
             </div>
           </div>
-          <div className="p-2 shadow-md rounded-2xl bg-white flex items-center gap-4">
-            <Clock9 size={28} />
+          <div className="p-3 rounded-2xl bg-white flex items-center gap-6">
+            <Clock9 size={20} className="text-gray-500" />
             <div>
               <h3 className="text-gray-600 font-bold text-lg">
                 {pendingTasks}
@@ -61,8 +61,13 @@ function Dashboard() {
           </div>
         </div>
 
+        {/* Recent Activities */}
+        <RecentActivities activities={recentActivities} />
+      </div>
+
+      <div className="flex gap-4 w-full flex-col lg:flex-row mt-6">
         {/* Statistic */}
-        <div className="p-4 bg-white shadow-md lg:w-1/2 w-full rounded-2xl">
+        <div className="p-4 bg-white lg:w-1/2 w-full rounded-2xl">
           <div className="flex gap-3 items-center">
             <ChartPie size={20} />
             <h3 className="text-lg font-semibold">Task Statistic</h3>
@@ -90,7 +95,9 @@ function Dashboard() {
           <ul className="mt-2 text-sm">
             {taskStatusData.map((item, index) => (
               <li key={index} className="flex justify-between">
-                <span>{item.name}</span>
+                <span style={{ color: item.color }} className="font-semibold">
+                  {item.name}
+                </span>
                 <span className="font-bold" style={{ color: item.color }}>
                   {item.value}
                 </span>
@@ -98,23 +105,21 @@ function Dashboard() {
             ))}
           </ul>
         </div>
-      </div>
 
-      <div className="flex gap-4 w-full flex-col lg:flex-row">
         {/* Calendar Integration using MUI */}
-        <div className="mt-6 p-4 bg-white shadow-md rounded-2xl lg:w-[30%] w-full">
+        <div className="p-4 bg-white rounded-2xl lg:w-[30%] w-full flex items-center">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DateCalendar
               value={date}
               onChange={(newDate) => setDate(newDate)}
               sx={{
                 "& .Mui-selected": {
-                  backgroundColor: "#f59e0b !important",
+                  backgroundColor: "#05df72 !important",
                   color: "white !important",
-                  border: "2px solid #996633",
+                  border: "2px solid #00c950",
                 },
                 "& .Mui-selected:hover": {
-                  backgroundColor: "#d97706 !important",
+                  backgroundColor: "#7bf1a8 !important",
                 },
               }}
             />
@@ -122,9 +127,6 @@ function Dashboard() {
         </div>
 
         <div className="flex gap-5 lg:w-[70%] w-full">
-          {/* Recent Activities */}
-          <RecentActivities activities={recentActivities} />
-
           {/* Upcoming Deadlines */}
           <UpcomingDeadline activities={upcomingDeadline} />
         </div>

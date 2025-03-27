@@ -26,12 +26,12 @@ function Tasks() {
   return (
     <Layout>
       <div className="p-4">
-        <div className="flex gap-3 justify-center mt-6 h-[40px]">
+        <div className="flex lg:flex-row flex-col gap-3 justify-center mt-6 lg:h-[40px]">
           <input
             type="text"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            className="p-2 flex rounded border border-gray-300 w-[400px] hover:border-black focus:outline-blue-500"
+            className="p-2 flex rounded border border-gray-300 lg:w-[400px] hover:border-black focus:outline-blue-500"
             placeholder="Add a new task"
           />
           <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -50,16 +50,16 @@ function Tasks() {
           </LocalizationProvider>
           <button
             onClick={handleAddTask}
-            className="ml-2 px-5 bg-amber-400 text-white rounded cursor-pointer"
+            className="lg:ml-2 px-5 py-2 lg:py-0 m-auto lg:m-0 bg-green-400 text-white rounded cursor-pointer"
           >
             Add
           </button>
         </div>
-        <ul className="mt-10 flex gap-4 flex-wrap">
+        <ul className="mt-10 flex justify-center gap-4 flex-wrap">
           {tasks.map((task) => (
-            <li key={task.id} className="bg-amber-200 w-[200px] p-3 rounded-lg">
+            <li key={task.id} className="bg-green-200 w-[200px] p-3 rounded-lg">
               <span
-                className={`text-lg font-semibold ${
+                className={`text-lg ${
                   task.completed ? "line-through text-gray-500" : ""
                 }`}
               >
