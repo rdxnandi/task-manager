@@ -18,7 +18,7 @@ This is a Task Manager Web built with React, Tailwind CSS, and Material-UI. The 
 
 ## Live Page
 
-live-page-link:
+live-page-link: https://tasksly-task-manager.vercel.app
 
 ## License
 
